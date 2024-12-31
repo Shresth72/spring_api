@@ -28,6 +28,7 @@ post_students:
 REGISTER_ID ?= 5
 REGISTER_USER ?= SpringUser
 REGISTER_PASSWORD ?= p@123
+REGISTER_TOKEN ?= eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTcHJpbmdVc2VyIiwiaWF0IjoxNzM1NjQyNjYwLCJleHAiOjE3MzU2Nzg2NjB9.HTQPWuFigYIsBtoi_WixabKQAYoXBIjcI6KcWPNfEUA
 
 post_register:
 	curl -X POST ${ENDPOINT}/register \
@@ -38,3 +39,7 @@ post_login:
 	curl -X POST ${ENDPOINT}/login \
 	-H "Content-Type: application/json" \
 	-d '{"id": ${REGISTER_ID}, "username": "${REGISTER_USER}", "password": "${REGISTER_PASSWORD}"}'
+
+token_get_students:
+	curl -X GET ${ENDPOINT}/students \
+	-H "Authorization: Bearer ${REGISTER_TOKEN}" | jq
