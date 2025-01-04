@@ -1,5 +1,6 @@
 package com.spring.quiz_service.controller;
 
+import com.spring.quiz_service.dto.QuizDto;
 import com.spring.quiz_service.model.QuestionWrapper;
 import com.spring.quiz_service.model.Response;
 import com.spring.quiz_service.service.QuizService;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,9 +21,9 @@ public class QuizController {
   @Autowired private QuizService quizService;
 
   @PostMapping("create")
-  public ResponseEntity<String> createQuiz(
-      @RequestParam String category, @RequestParam int numQ, @RequestParam String title) {
-    return quizService.createQuiz(category, numQ, title);
+  public ResponseEntity<String> createQuiz(@RequestBody QuizDto quizDto) {
+    return quizService.createQuiz(
+        quizDto.getCategoryName(), quizDto.getNumQuestions(), quizDto.getTitle());
   }
 
   @GetMapping("get/{id}")

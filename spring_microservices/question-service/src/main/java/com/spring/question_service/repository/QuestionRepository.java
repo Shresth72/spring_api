@@ -1,6 +1,6 @@
-package com.spring.quiz_service.repository;
+package com.spring.question_service.repository;
 
-import com.spring.quiz_service.model.Question;
+import com.spring.question_service.model.Question;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +13,8 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
   @Query(
       value =
-          "SELECT * FROM question q WHERE q.category=:category ORDER " + "BY RAND() LIMIT :numQ",
+          "SELECT q.id FROM question q WHERE q.category = :category ORDER "
+              + "BY RANDOM() LIMIT :numQ",
       nativeQuery = true)
-  List<Question> findRandomQuestionsByCategory(String category, int numQ);
+  List<Integer> findRandomQuestionsByCategory(String category, int numQ);
 }

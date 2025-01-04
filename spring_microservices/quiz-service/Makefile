@@ -17,7 +17,7 @@ add_question:
 # QUIZ
 QUIZ_TITLE ?= $(shell echo ${CATEGORY} | tr a-z A-Z)
 create_quiz:
-	curl -X POST "http://localhost:8001/quiz/create?category=Geography&numQ=5&title=Geography%20Quiz"
+	curl -X POST "http://localhost:8001/quiz/create?category=Geography&numQ=5&title=Geography%20Quiz%202"
 
 quiz_by_id:
 	curl -X GET http://localhost:8001/quiz/get/1 | jq

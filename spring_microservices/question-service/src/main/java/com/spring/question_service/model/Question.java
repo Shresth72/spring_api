@@ -1,4 +1,4 @@
-package com.spring.quiz_service.model;
+package com.spring.question_service.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
