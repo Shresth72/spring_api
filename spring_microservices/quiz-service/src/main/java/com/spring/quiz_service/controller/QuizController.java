@@ -20,13 +20,13 @@ public class QuizController {
 
   @Autowired private QuizService quizService;
 
-  @PostMapping("create")
+  @GetMapping("create")
   public ResponseEntity<String> createQuiz(@RequestBody QuizDto quizDto) {
     return quizService.createQuiz(
         quizDto.getCategoryName(), quizDto.getNumQuestions(), quizDto.getTitle());
   }
 
-  @GetMapping("get/{id}")
+  @PostMapping("get/{id}")
   public ResponseEntity<List<QuestionWrapper>> getQuizQuestions(@PathVariable Integer id) {
     return quizService.getQuizQuestions(id);
   }

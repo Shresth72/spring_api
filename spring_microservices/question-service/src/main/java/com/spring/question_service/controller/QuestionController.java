@@ -6,6 +6,7 @@ import com.spring.question_service.model.Response;
 import com.spring.question_service.service.QuestionService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuestionController {
 
   @Autowired QuestionService questionService;
+
+  @Autowired Environment environment;
 
   @GetMapping("allQuestions")
   public ResponseEntity<List<Question>> getAllQuestions() {
@@ -39,13 +41,15 @@ public class QuestionController {
 
   @GetMapping("generate")
   public ResponseEntity<List<Integer>> getQuestionsForQuiz(
-      @RequestPart String categoryName, @RequestParam Integer numQ) {
+      @RequestParam String categoryName, @RequestParam Integer numQ) {
     return questionService.getQuestionsForQuiz(categoryName, numQ);
   }
 
-  @GetMapping("getQuestions")
+  @PostMapping("getQuestions")
   public ResponseEntity<List<QuestionWrapper>> getQuestionsFromId(
       @RequestBody List<Integer> questionIds) {
+    System.out.println(environment.getProperty("local.server.port"));
+
     return questionService.getQuestionsFromId(questionIds);
   }
 

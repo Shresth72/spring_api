@@ -5,19 +5,18 @@ run:
 all_questions:
 	curl -X GET http://localhost:8001/question/allQuestions | jq
 
-CATEGORY ?= geography
+# GET
+GET_CATEGORY ?= geography
+
 questions_by_category:
 	curl -X GET http://localhost:8001/question/category/${CATEGORY} | jq
 
-add_question:
-	curl -X POST http://localhost:8001/question/add \
-	-H "Content-Type: application/json" \
-	-d '{"questionTitle": "Where is India located?", "option1": "Asia", "option2": "Africa", "option3": "North America", "option4": "Europe", "rightAnswer": "Asia", "difficultylevel": "Easy", "category": "Geography"}'
-
 # QUIZ
-QUIZ_TITLE ?= $(shell echo ${CATEGORY} | tr a-z A-Z)
+CATEGORY ?= Geography
+NUM_QUESTIONS ?= 5
+
 create_quiz:
-	curl -X POST "http://localhost:8001/quiz/create?category=Geography&numQ=5&title=Geography%20Quiz%202"
+	curl -X GET http://localhost:8001/quiz/create -H "Content-Type: application/json" -d '{"categoryName": "${CATEGORY}", "numQuestions": 5, "title": "Geo Test 2"}'
 
 quiz_by_id:
 	curl -X GET http://localhost:8001/quiz/get/1 | jq
@@ -48,6 +47,10 @@ submit_quiz:
 
 
 
+add_question:
+	curl -X POST http://localhost:8001/question/add \
+	-H "Content-Type: application/json" \
+	-d '{"questionTitle": "Where is India located?", "option1": "Asia", "option2": "Africa", "option3": "North America", "option4": "Europe", "rightAnswer": "Asia", "difficultylevel": "Easy", "category": "Geography"}'
 
 add_question_1:
 	curl -X POST http://localhost:8001/question/add \
